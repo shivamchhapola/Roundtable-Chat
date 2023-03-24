@@ -9,7 +9,7 @@ export default function Footer() {
         <a
           target="_blank"
           href="https://instagram.com/shiv_chhapola"
-          className="link text-accent pl-1.5">
+          className="link link-primary pl-1.5">
           Shivam Chhapola
         </a>
       </div>

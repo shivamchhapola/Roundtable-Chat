@@ -7,10 +7,10 @@ export default function Section4() {
       <div className="hero min-h-max py-24 bg-base-100">
         <div className="hero-content flex-col md:flex-row md:max-w-4xl">
           <div className="w-full md:w-1/2 text-center md:text-left">
-            <div className="font-bold text-2xl text-primary-content md:text-3xl">
+            <div className="font-bold text-2xl md:text-3xl">
               Multimedia sharing
             </div>
-            <div className="py-6 text-primary-content text-sm md:text-lg">
+            <div className="py-6 text-sm md:text-lg">
               Roundtable could allow users to share a variety of multimedia
               content, such as photos, videos, and links. This would enable
               users to engage with each other in a more dynamic way and share

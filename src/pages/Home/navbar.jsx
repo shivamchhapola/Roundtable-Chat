@@ -2,6 +2,8 @@ import React, { useEffect, useState } from 'react';
 import { SiRoundcube, SiGithub } from 'react-icons/si';
 import { GiHamburgerMenu, GiCardBurn } from 'react-icons/gi';
 import { MdKeyboardArrowDown } from 'react-icons/md';
+import { useDispatch } from 'react-redux';
+import { changeTheme } from '../../slices/themeSlice';
 
 export default function Navbar() {
   const themes = [
@@ -18,26 +20,27 @@ export default function Navbar() {
     'night',
   ];
 
-  const [navCol, setNavCol] = useState('bg-transparent');
+  const [navCol, setNavCol] = useState('bg-transparent text-primary-content');
+  const dispatch = useDispatch();
 
   useEffect(() => {
     const homeElement = document.getElementById('home');
     const scrollEvent = () => {
       homeElement.scrollTop >= 80
         ? setNavCol('bg-base-100')
-        : setNavCol('bg-transparent');
+        : setNavCol('bg-transparent text-primary-content');
     };
 
-    homeElement.addEventListener('scroll', scrollEvent);
+    homeElement.addEventListener('scroll', scrollEvent, false);
   }, []);
 
   return (
     <header
-      className={`navbar justify-between z-30 sticky  text-primary-content top-0 backdrop-blur bg-opacity-90 ${navCol}`}>
+      className={`navbar justify-between z-30 sticky top-0 backdrop-blur bg-opacity-90 ${navCol}`}>
       {/*Logo*/}
       <a className="btn btn-ghost normal-case text-base md:text-xl">
-        <SiRoundcube className="pr-1 text-xl md:text-2xl" />
-        Roundtable
+        <img src="/roundtable_icon.svg" className="pr-1 w-10 md:w-12" />
+        <span className="md:mb-1 mb-0.5">Roundtable</span>
       </a>
 
       {/*Desktop Menu*/}
@@ -60,7 +63,7 @@ export default function Navbar() {
         </div>
 
         {/*Themes Dropdown*/}
-        <div className="dropdown dropdown-end">
+        <div title="Change Themes" className="dropdown dropdown-end">
           <label tabIndex={0} className="btn btn-ghost normal-case text-base">
             <GiCardBurn className="pr-1 text-2xl" />
             <span className="hidden md:block">Themes</span>
@@ -73,6 +76,7 @@ export default function Navbar() {
               return (
                 <li
                   key={i}
+                  onClick={() => dispatch(changeTheme(theme))}
                   data-theme={theme}
                   className="rounded-box font-bold text-primary-content h-9 pl-3 flex items-center mb-2 last:mb-0 hover:cursor-pointer bg-primary hover:bg-primary-focus">
                   <a>{theme}</a>

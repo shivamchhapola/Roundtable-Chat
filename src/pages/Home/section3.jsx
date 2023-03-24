@@ -10,10 +10,10 @@ export default function Section3() {
             <img src={TestImg} className="w-full" />
           </div>
           <div className="w-full md:w-1/2 text-center md:text-right">
-            <div className="font-bold text-2xl text-primary-content md:text-3xl">
+            <div className="font-bold text-2xl md:text-3xl">
               Moderation tools
             </div>
-            <div className="py-6 text-primary-content text-sm md:text-lg">
+            <div className="py-6 text-sm md:text-lg">
               Roundtable could offer a range of moderation tools to help ensure
               that conversations are respectful and productive. This could
               include features such as the ability to mute or block other users,

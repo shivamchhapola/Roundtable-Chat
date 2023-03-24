@@ -1,20 +1,13 @@
 import React from 'react';
+import { useSelector } from 'react-redux';
 import Homepage from './pages/Home/main';
-import store from './store';
-import { Provider } from 'react-redux';
 
 export default function App() {
-  const scrollEvent = () => {
-    console.log(window.pageYOffset);
-  };
-
-  window.addEventListener('scroll', scrollEvent);
+  const theme = useSelector((state) => state.theme.value);
 
   return (
-    <Provider store={store}>
-      <div>
-        <Homepage />
-      </div>
-    </Provider>
+    <div data-theme={theme}>
+      <Homepage />
+    </div>
   );
 }
