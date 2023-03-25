@@ -3,13 +3,13 @@ import { SiGithub, SiInstagram, SiLinkedin, SiTwitter } from 'react-icons/si';
 
 export default function Footer() {
   return (
-    <footer className="py-1 px-3 navbar w-full justify-between flex-col md:flex-row bg-base-100">
+    <footer className="my-4 px-3 footer items-center w-full justify-between flex-col md:flex-row">
       <div className="h-full flex flex-row items-center">
         Made by
         <a
           target="_blank"
           href="https://instagram.com/shiv_chhapola"
-          className="link link-primary pl-1.5">
+          className="link link-primary">
           Shivam Chhapola
         </a>
       </div>

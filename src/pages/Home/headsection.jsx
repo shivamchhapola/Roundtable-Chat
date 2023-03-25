@@ -3,7 +3,7 @@ import React from 'react';
 export default function Section1() {
   return (
     <div>
-      <div className={'hero min-h-screen bg-transparent'}>
+      <div className={'hero min-h-screen'}>
         <div className="hero-content text-center">
           <div className="max-w-xl text-primary-content">
             <div className="font-bold text-3xl md:text-4xl">

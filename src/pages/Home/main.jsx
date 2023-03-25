@@ -1,33 +1,39 @@
 import React from 'react';
 import Footer from './footer';
 import Navbar, { Sidebar } from './navbar';
-import Section1 from './section1';
-import Section2 from './section2';
-import Section3 from './section3';
-import Section4 from './section4';
+import FeaturesList from './featuresList';
+import HeadSection from './headsection';
+import 'react-responsive-carousel/lib/styles/carousel.min.css';
+import Features from './features';
 
 export default function main() {
+  console.log(FeaturesList);
+
   return (
     <div className="drawer w-screen">
       <input id="menu-drawer" type="checkbox" className="drawer-toggle" />
       <div
         id="home"
-        className="drawer-content flex flex-col scroll-smooth bg-gradient-to-br from-primary to-secondary">
+        className="drawer-content flex flex-col scroll-smooth  bg-gradient-to-br from-primary to-secondary custom-scrollbar">
         <Navbar />
-        <Section1 />
-        <Section2 />
+        <HeadSection />
+        {FeaturesList.map((feature, i) => {
+          return (
+            <div className="bg-base-100">
+              <Features
+                key={i}
+                Title={feature.Title}
+                Image={feature.Image}
+                Description={feature.Description}
+                FlexProp={i % 2 === 0 ? 'md:flex-row' : 'md:flex-row-reverse'}
+              />
+              <hr className="border-t-2 border-neutral" />
+            </div>
+          );
+        })}
         <div className="bg-base-100">
-          <div className="divider"></div>
+          <Footer />
         </div>
-        <Section3 />
-        <div className="bg-base-100">
-          <div className="divider"></div>
-        </div>
-        <Section4 />
-        <div className="bg-base-100">
-          <div className="divider"></div>
-        </div>
-        <Footer />
       </div>
       <Sidebar />
     </div>

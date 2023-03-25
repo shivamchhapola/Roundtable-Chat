@@ -67,7 +67,7 @@ export default function Navbar() {
           <label tabIndex={0} className="btn btn-ghost normal-case text-base">
             <GiCardBurn className="pr-1 text-2xl" />
             <span className="hidden md:block">Themes</span>
-            <MdKeyboardArrowDown className="pl-1 text-2xl" />
+            <MdKeyboardArrowDown className="pl-1 text-lg md:text-xl" />
           </label>
           <ul
             tabIndex={0}
@@ -87,7 +87,10 @@ export default function Navbar() {
         </div>
 
         {/*Github Link*/}
-        <a className="btn btn-ghost btn-circle normal-case text-base">
+        <a
+          className="btn btn-ghost btn-circle normal-case text-base"
+          target="_blank"
+          href="https://github.com/shivamchhapola">
           <SiGithub className="text-xl md:text-2xl" />
         </a>
 
@@ -110,7 +113,7 @@ export function Sidebar() {
       <label htmlFor="menu-drawer" className="drawer-overlay"></label>
       <ul className="menu p-4 w-80 bg-base-100 font-semibold ">
         <li>
-          <a className="text-lg text-primary-content">
+          <a className="text-lg">
             <SiRoundcube className="pr-1 text-xl md:text-2xl" />
             Roundtable
           </a>

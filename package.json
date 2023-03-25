@@ -9,13 +9,18 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "@rcaferati/wac": "^1.0.0",
     "@reduxjs/toolkit": "^1.9.3",
+    "@tailwindcss/typography": "^0.5.9",
+    "@trendyol-js/react-carousel": "^3.0.2",
     "daisyui": "^2.51.4",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-icons": "^4.8.0",
     "react-redux": "^8.0.5",
-    "redux": "^4.2.1"
+    "react-responsive-carousel": "^3.2.23",
+    "redux": "^4.2.1",
+    "swiper": "^9.1.1"
   },
   "devDependencies": {
     "@types/react": "^18.0.28",
