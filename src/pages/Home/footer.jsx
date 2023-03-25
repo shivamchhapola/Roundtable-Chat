@@ -3,8 +3,8 @@ import { SiGithub, SiInstagram, SiLinkedin, SiTwitter } from 'react-icons/si';
 
 export default function Footer() {
   return (
-    <footer className="my-4 px-3 footer items-center w-full justify-between flex-col md:flex-row">
-      <div className="h-full flex flex-row items-center">
+    <footer className="my-4 px-3 footer w-full justify-center md:justify-between flex-col md:flex-row">
+      <div className="h-full flex flex-row items-center w-full justify-center">
         Made by
         <a
           target="_blank"
