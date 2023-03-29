@@ -4,6 +4,7 @@ import { GiHamburgerMenu, GiCardBurn } from 'react-icons/gi';
 import { MdKeyboardArrowDown } from 'react-icons/md';
 import { useDispatch } from 'react-redux';
 import { changeTheme } from '../../slices/themeSlice';
+import { Link } from 'react-router-dom';
 
 export default function Navbar() {
   const themes = [
@@ -38,8 +39,7 @@ export default function Navbar() {
     <header
       className={`navbar justify-between z-30 sticky top-0 backdrop-blur bg-opacity-90 ${navCol}`}>
       {/*Logo*/}
-      <a className="btn btn-ghost normal-case text-base md:text-xl">
-        <img src="/roundtable_icon.svg" className="pr-1 w-10 md:w-12" />
+      <a className="btn btn-ghost normal-case font-bold text-base md:text-xl">
         <span className="md:mb-1 mb-0.5">Roundtable</span>
       </a>
 
@@ -48,7 +48,9 @@ export default function Navbar() {
         <div className="flex-none font-semibold hidden md:flex flex-row">
           <ul className="menu menu-horizontal px-1">
             <li>
-              <a>Join</a>
+              <Link to="/join" reloadDocument>
+                Join
+              </Link>
             </li>
             <li>
               <a>Groups</a>
@@ -90,7 +92,7 @@ export default function Navbar() {
         <a
           className="btn btn-ghost btn-circle normal-case text-base"
           target="_blank"
-          href="https://github.com/shivamchhapola">
+          href="https://github.com/shivamchhapola/roundtable-chat">
           <SiGithub className="text-xl md:text-2xl" />
         </a>
 
@@ -113,10 +115,7 @@ export function Sidebar() {
       <label htmlFor="menu-drawer" className="drawer-overlay"></label>
       <ul className="menu p-4 w-80 bg-base-100 font-semibold ">
         <li>
-          <a className="text-lg">
-            <SiRoundcube className="pr-1 text-xl md:text-2xl" />
-            Roundtable
-          </a>
+          <a className="text-lg">Roundtable</a>
         </li>
         <div className="divider"></div>
         <li>

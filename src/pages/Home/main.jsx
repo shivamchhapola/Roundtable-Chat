@@ -7,8 +7,6 @@ import 'react-responsive-carousel/lib/styles/carousel.min.css';
 import Features from './features';
 
 export default function main() {
-  console.log(FeaturesList);
-
   return (
     <div className="drawer w-screen">
       <input id="menu-drawer" type="checkbox" className="drawer-toggle" />
