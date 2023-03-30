@@ -44,7 +44,7 @@ export default function main() {
         </label>
         <ul
           tabIndex={0}
-          className="dropdown-content bg-base-200 text-base-content rounded-t-box rounded-b-box max-h-96 h-[50vh] w-48 overflow-y-scroll shadow-2xl mt-3 justify-start p-3 scrollbar-hide">
+          className="dropdown-content bg-base-200 text-base-content rounded-t-box rounded-b-box max-h-96 h-[50vh] w-48 overflow-y-scroll shadow-2xl mt-4 justify-start p-3 scrollbar-hide">
           {themes.map((theme, i) => {
             return (
               <li
