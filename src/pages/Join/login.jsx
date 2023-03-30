@@ -43,7 +43,7 @@ export default function login({ isLogin, data, setData }) {
           )}
         </button>
       </div>
-      <button className="font-extralight text-xs text-right w-64 relative bottom-1 link">
+      <button className="font-extralight text-xs text-right w-64 relative bottom-1 link text-error">
         Forgot Password?
       </button>
       <button className="btn btn-accent btn-wide btn-sm lg:btn-md">
