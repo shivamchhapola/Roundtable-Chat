@@ -3,7 +3,7 @@ import { SiRoundcube, SiGithub } from 'react-icons/si';
 import { GiHamburgerMenu, GiCardBurn } from 'react-icons/gi';
 import { MdKeyboardArrowDown } from 'react-icons/md';
 import { useDispatch } from 'react-redux';
-import { changeTheme } from '../../slices/themeSlice';
+import { changeTheme } from '../slices/themeSlice';
 import { Link } from 'react-router-dom';
 
 export default function Navbar() {
@@ -119,7 +119,9 @@ export function Sidebar() {
         </li>
         <div className="divider"></div>
         <li>
-          <a>Join</a>
+          <Link to="/join" reloadDocument>
+            Join
+          </Link>
         </li>
         <li>
           <a>Groups</a>

@@ -10,19 +10,20 @@ export default function login({ isLogin, data, setData }) {
 
   return (
     <form
+      method="POST"
       className={`flex-col justify-center gap-3 items-center w-full ${
         !isLogin ? 'flex' : 'hidden'
       }`}>
       <input
         name="email"
-        className="input input-bordered input-secondary bg-secondary bg-opacity-20 w-64 input-sm lg:input-md lg:text-base"
+        className="input input-bordered input-secondary bg-secondary bg-opacity-20 max-w-[16rem] min-w-[10rem] w-full input-sm lg:input-md lg:text-base"
         value={data ? data['email'] : ''}
         placeholder="Email"
         onChange={(e) => onDataChange(e)}
       />
       <input
         name="name"
-        className="input input-bordered input-secondary bg-secondary bg-opacity-20 w-64 input-sm lg:input-md lg:text-base"
+        className="input input-bordered input-secondary bg-secondary bg-opacity-20 max-w-[16rem] min-w-[10rem] w-full input-sm lg:input-md lg:text-base"
         value={data ? data['name'] : ''}
         placeholder="Name"
         onChange={(e) => onDataChange(e)}
@@ -30,14 +31,14 @@ export default function login({ isLogin, data, setData }) {
       <div className="w-full flex flex-row justify-center items-center">
         <input
           name="password"
-          className="input input-bordered input-secondary bg-secondary bg-opacity-20 w-64 relative left-3 input-sm lg:input-md lg:text-base"
+          className="input input-bordered input-secondary bg-secondary bg-opacity-20 max-w-[16rem] min-w-[10rem] w-full input-sm lg:input-md lg:text-base"
           placeholder="Password"
           value={data ? data['password'] : ''}
           type={showPass ? 'text' : 'password'}
           onChange={(e) => onDataChange(e)}
         />
         <button
-          className="relative right-5 text-secondary"
+          className="relative right-8 mr-[-1.5rem] text-secondary"
           onClick={(e) => {
             e.preventDefault();
             setShowPass(!showPass);
@@ -51,7 +52,7 @@ export default function login({ isLogin, data, setData }) {
       </div>
       <input
         name="confirmPassword"
-        className="input input-bordered input-secondary bg-secondary bg-opacity-20 w-64 input-sm lg:input-md lg:text-base"
+        className="input input-bordered input-secondary bg-secondary bg-opacity-20 max-w-[16rem] min-w-[10rem] w-full input-sm lg:input-md lg:text-base"
         placeholder="Confirm Password"
         value={data ? data['confirmPassword'] : ''}
         type={showPass ? 'text' : 'password'}
@@ -59,7 +60,7 @@ export default function login({ isLogin, data, setData }) {
       />
       <button
         type="submit"
-        className="btn btn-secondary btn-wide btn-sm lg:btn-md">
+        className="btn btn-secondary max-w-[16rem] min-w-[10rem] w-full btn-sm lg:btn-md">
         Signup
       </button>
     </form>

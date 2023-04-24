@@ -1,6 +1,6 @@
 import React from 'react';
-import Footer from './footer';
-import Navbar, { Sidebar } from './navbar';
+import Footer from '../../components/footer';
+import Navbar, { Sidebar } from '../../components/navbar';
 import FeaturesList from './featuresList';
 import HeadSection from './headsection';
 import 'react-responsive-carousel/lib/styles/carousel.min.css';

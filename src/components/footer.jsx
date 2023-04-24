@@ -3,7 +3,7 @@ import { SiGithub, SiInstagram, SiLinkedin, SiTwitter } from 'react-icons/si';
 
 export default function Footer() {
   return (
-    <footer className="my-4 px-3 footer w-full justify-center md:justify-between flex-col md:flex-row">
+    <div className="my-4 px-3 footer w-full justify-center md:justify-between flex-col md:flex-row">
       <div className="h-full flex flex-row items-center w-full justify-center">
         Made by
         <a
@@ -39,6 +39,6 @@ export default function Footer() {
           <SiLinkedin className="text-xl md:text-2xl" />
         </a>
       </div>
-    </footer>
+    </div>
   );
 }
