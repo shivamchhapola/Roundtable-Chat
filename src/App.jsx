@@ -2,6 +2,7 @@ import React from 'react';
 import { useSelector } from 'react-redux';
 import Homepage from './pages/Home/main';
 import Join from './pages/Join/main';
+import Groupchat from './pages/Groupchat/main';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 
 export default function App() {
@@ -13,6 +14,7 @@ export default function App() {
         <Routes>
           <Route index element={<Homepage />} />
           <Route path="/join" element={<Join />} />
+          <Route path="/groupchat" element={<Groupchat />} />
         </Routes>
       </BrowserRouter>
     </div>

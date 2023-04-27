@@ -39,9 +39,11 @@ export default function Navbar() {
     <header
       className={`navbar justify-between z-30 sticky top-0 backdrop-blur bg-opacity-90 ${navCol}`}>
       {/*Logo*/}
-      <a className="btn btn-ghost normal-case font-bold text-base md:text-xl">
+      <Link
+        className="btn btn-ghost normal-case font-bold text-base md:text-xl"
+        to="/">
         <span className="md:mb-1 mb-0.5">Roundtable</span>
-      </a>
+      </Link>
 
       {/*Desktop Menu*/}
       <div>
