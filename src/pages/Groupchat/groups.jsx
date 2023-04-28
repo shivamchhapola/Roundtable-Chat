@@ -1,4 +1,6 @@
 import React from 'react';
+import { changeSelectedGroup } from '../../slices/groupSlice';
+import { useDispatch, useSelector } from 'react-redux';
 
 import DummyGroups from '../../dummy/DummyGroups';
 
@@ -12,84 +14,32 @@ export default function Groups() {
         <div className="divider divider-vertical mt-0 mb-0"></div>
       </div>
       <div className="px-2 w-full h-[calc(100vh-5.25rem)] overflow-y-auto overflow-x-hidden flex flex-col justify-start gap-1 scrollbar-hide">
-        <GroupItem
-          name={DummyGroups[0].name}
-          pic={DummyGroups[0].pic}
-          bio={DummyGroups[0].bio}
-        />
-        <GroupItem
-          name={DummyGroups[0].name}
-          pic={DummyGroups[0].pic}
-          bio={DummyGroups[0].bio}
-        />
-        <GroupItem
-          name={DummyGroups[0].name}
-          pic={DummyGroups[0].pic}
-          bio={DummyGroups[0].bio}
-        />
-        <GroupItem
-          name={DummyGroups[0].name}
-          pic={DummyGroups[0].pic}
-          bio={DummyGroups[0].bio}
-        />
-        <GroupItem
-          name={DummyGroups[0].name}
-          pic={DummyGroups[0].pic}
-          bio={DummyGroups[0].bio}
-        />
-        <GroupItem
-          name={DummyGroups[0].name}
-          pic={DummyGroups[0].pic}
-          bio={DummyGroups[0].bio}
-        />
-        <GroupItem
-          name={DummyGroups[0].name}
-          pic={DummyGroups[0].pic}
-          bio={DummyGroups[0].bio}
-        />
-        <GroupItem
-          name={DummyGroups[0].name}
-          pic={DummyGroups[0].pic}
-          bio={DummyGroups[0].bio}
-        />
-        <GroupItem
-          name={DummyGroups[0].name}
-          pic={DummyGroups[0].pic}
-          bio={DummyGroups[0].bio}
-        />
-        <GroupItem
-          name={DummyGroups[0].name}
-          pic={DummyGroups[0].pic}
-          bio={DummyGroups[0].bio}
-        />
-        <GroupItem
-          name={DummyGroups[0].name}
-          pic={DummyGroups[0].pic}
-          bio={DummyGroups[0].bio}
-        />
-        <GroupItem
-          name={DummyGroups[0].name}
-          pic={DummyGroups[0].pic}
-          bio={DummyGroups[0].bio}
-        />
-        <GroupItem
-          name={DummyGroups[0].name}
-          pic={DummyGroups[0].pic}
-          bio={DummyGroups[0].bio}
-        />
-        <GroupItem
-          name={DummyGroups[0].name}
-          pic={DummyGroups[0].pic}
-          bio={DummyGroups[0].bio}
-        />
+        {DummyGroups.map((group, i) => {
+          return (
+            <GroupItem
+              key={i}
+              id={group._id}
+              name={group.name}
+              pic={group.pic}
+              bio={group.bio}
+            />
+          );
+        })}
       </div>
     </div>
   );
 }
 
-function GroupItem({ name, pic, bio }) {
+function GroupItem({ id, name, pic, bio }) {
+  const dispatch = useDispatch();
+  const selectedGroup = useSelector((state) => state.group.selectedGroup);
+
   return (
-    <div className="btn btn-ghost flex-row normal-case w-full">
+    <div
+      onClick={() => dispatch(changeSelectedGroup(id))}
+      className={`btn btn-ghost flex-row normal-case w-full ${
+        selectedGroup == id && 'btn-active'
+      }`}>
       <div className="avatar">
         <div className="h-11 rounded-full">
           <img src={pic} />

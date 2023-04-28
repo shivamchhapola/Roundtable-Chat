@@ -2,6 +2,7 @@ import React from 'react';
 import { GiCardBurn } from 'react-icons/gi';
 import { MdKeyboardArrowDown } from 'react-icons/md';
 import Groups from './groups';
+import Groupmenu from './groupmenu';
 import { useDispatch } from 'react-redux';
 import { changeTheme } from '../../slices/themeSlice';
 
@@ -26,7 +27,7 @@ export default function Desktop() {
     <div
       className="bg-base-300 w-screen h-screen flex-col hidden md:flex select-none"
       onContextMenu={(e) => {
-        e.preventDefault();
+        //e.preventDefault();
       }}>
       <div
         title="Change Themes"
@@ -57,12 +58,14 @@ export default function Desktop() {
       </div>
       <div className="h-[calc(100vh-2rem)] w-full flex flex-row">
         <div className="w-12 h-full min-w-[3%]"></div>
-        <div className="w-[calc(100vw-3rem)] h-full flex flex-row rounded-tl-md overflow-hidden">
-          <div className="bg-base-200 w-[30%] h-full shadow-sm shadow-base-content relative z-10">
+        <div className="w-[calc(100vw-3rem)] h-full flex flex-row rounded-tl-[var(--rounded-btn)] overflow-hidden">
+          <div className="bg-base-200 w-[26%] h-full shadow-sm shadow-base-content relative z-10">
             <Groups />
           </div>
-          <div className="bg-base-100 w-[30%] h-full z-0"></div>
-          <div className="bg-base-200 w-[40%] h-full shadow-sm shadow-base-content relative z-10"></div>
+          <div className="bg-base-100 w-[25%] h-full z-0">
+            <Groupmenu />
+          </div>
+          <div className="bg-base-200 w-[49%] h-full shadow-sm shadow-base-content relative z-10"></div>
         </div>
       </div>
     </div>
