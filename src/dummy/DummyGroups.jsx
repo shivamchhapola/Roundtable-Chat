@@ -15,7 +15,7 @@ import Img14 from './Images/14.jpg';
 import Img15 from './Images/15.jpg';
 import Img16 from './Images/16.jpg';
 
-const Groups = [
+const DummyGroups = [
   {
     _id: '1',
     name: 'Echidna',
@@ -241,4 +241,4 @@ const Groups = [
   },
 ];
 
-export default Groups;
+export default DummyGroups;
