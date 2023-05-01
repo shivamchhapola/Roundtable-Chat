@@ -30,12 +30,13 @@ export default function Groupmenu() {
               }`}
               key={i}
               onClick={() => dispatch(changeSelectedChatroom(i))}>
-              <span className="w-full text-left normal-case font-medium text-sm text-base-content min-w-[3rem] overflow-hidden overflow-ellipsis px-3 text-opacity-70">
+              <span className="w-full text-left normal-case font-medium text-sm text-base-content min-w-[3rem] whitespace-nowrap overflow-hidden overflow-ellipsis px-3 text-opacity-70">
                 /{room}
               </span>
             </div>
           );
         })}
+        <div className="w-full py-6"></div>
       </div>
     </div>
   );

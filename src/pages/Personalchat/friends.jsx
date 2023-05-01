@@ -4,19 +4,19 @@ import { useDispatch, useSelector } from 'react-redux';
 
 import DummyGroups from '../../dummy/DummyGroups';
 
-export default function Groups() {
+export default function Friends() {
   return (
     <div className="w-full">
       <div className="h-12 w-full flex flex-col">
         <div className="pt-2 pb-1 text-center font-semibold w-full">
-          Your Groups
+          Personal Chat
         </div>
         <div className="divider divider-vertical my-0"></div>
       </div>
       <div className="px-2 w-full h-[calc(100vh-5.75rem)] overflow-y-auto overflow-x-hidden flex flex-col justify-start gap-1 scrollbar-hide">
         {DummyGroups.map((group, i) => {
           return (
-            <GroupItem
+            <FriendItem
               key={i}
               id={group._id}
               name={group.name}
@@ -31,7 +31,7 @@ export default function Groups() {
   );
 }
 
-function GroupItem({ id, name, pic, bio }) {
+function FriendItem({ id, name, pic, bio }) {
   const dispatch = useDispatch();
   const selectedGroup = useSelector((state) => state.group.selectedGroup);
 

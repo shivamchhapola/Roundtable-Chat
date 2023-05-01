@@ -5,7 +5,7 @@ import { useSelector } from 'react-redux';
 import DummyGroups from '../../dummy/DummyGroups';
 import DummyMessages from '../../dummy/DummyMessages';
 
-export default function Chatroom() {
+export default function Chat() {
   const selectedGroup = useSelector((state) => state.group.selectedGroup);
   const selectedChatroom = useSelector((state) => state.group.selectedChatroom);
 
