@@ -17,6 +17,7 @@ export default function login({ isLogin }) {
   };
 
   const login = async (e) => {
+    console.log(import.meta.env);
     e.preventDefault();
     setData({ username: '', password: '' });
     return await axios
