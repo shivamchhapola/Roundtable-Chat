@@ -11,7 +11,9 @@
   "dependencies": {
     "@reduxjs/toolkit": "^1.9.3",
     "@tailwindcss/typography": "^0.5.9",
+    "axios": "^1.4.0",
     "daisyui": "^2.51.4",
+    "dotenv": "^16.0.3",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-icons": "^4.8.0",

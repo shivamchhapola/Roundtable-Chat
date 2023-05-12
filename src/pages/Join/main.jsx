@@ -25,13 +25,6 @@ export default function main() {
   const dispatch = useDispatch();
 
   const [isLogin, setIsLogin] = useState(true);
-  const [loginData, setLoginData] = useState({ username: '', password: '' });
-  const [signupData, setSignupData] = useState({
-    email: '',
-    name: '',
-    password: '',
-    confirmPassword: '',
-  });
 
   return (
     <div className="flex flex-col bg-base-100 justify-center items-center w-full h-screen bg-[url('/Colored_Shapes.svg')] bg-no-repeat bg-fixed bg-cover bg-center">
@@ -78,23 +71,9 @@ export default function main() {
         </div>
       </div>
 
-      <Desktop
-        isLogin={isLogin}
-        loginData={loginData}
-        signupData={signupData}
-        setIsLogin={setIsLogin}
-        setLoginData={setLoginData}
-        setSignupData={setSignupData}
-      />
+      <Desktop isLogin={isLogin} setIsLogin={setIsLogin} />
 
-      <Mobile
-        isLogin={isLogin}
-        loginData={loginData}
-        signupData={signupData}
-        setIsLogin={setIsLogin}
-        setLoginData={setLoginData}
-        setSignupData={setSignupData}
-      />
+      <Mobile isLogin={isLogin} setIsLogin={setIsLogin} />
     </div>
   );
 }
