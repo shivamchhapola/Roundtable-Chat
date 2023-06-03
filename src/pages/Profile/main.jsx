@@ -1,32 +1,28 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect } from 'react';
 import Mobile from './main.mobile';
 import Desktop from './main.desktop';
-import axios from 'axios';
+import { useDispatch } from 'react-redux';
+import { useSelector } from 'react-redux';
+import { getUserProfile } from '../../utils/user';
+import { changeUserData } from '../../slices/userSlice';
 
 export default function main() {
-  const [profile, setProfile] = useState({});
-
+  const dispatch = useDispatch();
+  const user = useSelector((state) => state.user.data);
+  const setUserData = async () => {
+    await getUserProfile().then((data) => {
+      dispatch(changeUserData(data));
+    });
+  };
   useEffect(() => {
-    const getProfile = async () => {
-      await axios
-        .get(`${import.meta.env.VITE_BACKEND}/api/user/getmyprofile`, {
-          headers: {
-            Authorization: `Bearer ${localStorage.getItem('userToken')}`,
-          },
-        })
-        .then((res) => {
-          setProfile(res.data);
-        })
-        .catch((err) => {
-          console.log(err);
-        });
-    };
-    getProfile();
+    if (!user.id) {
+      setUserData();
+    }
   }, []);
 
   return (
     <>
-      <Desktop profileData={profile} setProfile={setProfile} />
+      <Desktop />
       <Mobile />
     </>
   );

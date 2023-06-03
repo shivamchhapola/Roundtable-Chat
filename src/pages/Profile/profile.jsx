@@ -1,10 +1,11 @@
 import React, { useEffect, useState } from 'react';
 import { MdCall, MdEdit, MdMail } from 'react-icons/md';
-import pic from '../../dummy/Images/1.jpg';
-import banner from '../../dummy/Images/3.jpg';
+import { useSelector } from 'react-redux';
 import EditProfile from './editProfile';
 
-export default function Profile({ profileData, setProfile }) {
+export default function Profile() {
+  const profileData = useSelector((state) => state.user.data);
+
   const [updateError, setUpdateError] = useState('');
 
   return (
@@ -34,10 +35,12 @@ export default function Profile({ profileData, setProfile }) {
       <div
         name="Banner"
         className="bg-primary w-full h-40 rounded-t-[var(--rounded-btn)] overflow-hidden relative">
-        <img
-          src={banner}
-          className="absolute top-[-9999px] bottom-[-9999px] left-[-9999px] right-[-9999px] m-auto object-fill w-full"
-        />
+        {profileData && profileData.banner && (
+          <img
+            src={profileData.banner}
+            className="absolute top-[-9999px] bottom-[-9999px] left-[-9999px] right-[-9999px] m-auto object-fill w-full"
+          />
+        )}
         <label
           htmlFor="editProfile"
           className="absolute btn btn-circle right-2 top-2 bg-gray-800 bg-opacity-30 border-0 text-white hover:bg-gray-700">
@@ -46,30 +49,32 @@ export default function Profile({ profileData, setProfile }) {
       </div>
       <div name="Profile Picture" className="avatar relative bottom-7">
         <div className="w-20 rounded-full bg-white">
-          <img src={pic} />
+          {profileData && profileData.pic && <img src={profileData.pic} />}
         </div>
       </div>
 
       {/*Username, Name, Bio, Link*/}
       <div className="w-[90%] text-center flex flex-col justify-start items-center">
-        <span className="font-semibold w-full">u/{profileData.username}</span>
-        <span className="text-2xl font-semibold text-primary">
-          {profileData.name}
+        <span className="font-semibold w-full">
+          u/{(profileData && profileData.username) || ''}
         </span>
-        {profileData.bio === '' ? (
+        <span className="text-2xl font-semibold text-primary">
+          {profileData && profileData.name}
+        </span>
+        {profileData && profileData.bio === '' ? (
           <span className="text-xs opacity-50 pt-1">No Bio</span>
         ) : (
-          <span>{profileData.bio}</span>
+          <span>{(profileData && profileData.bio) || ''}</span>
         )}
         <span>
-          {profileData.link === '' ? (
+          {profileData && profileData.link === '' ? (
             <span className="text-xs opacity-50 pt-1">No Link</span>
           ) : (
             <a
-              href={profileData.link}
+              href={profileData && profileData.link}
               target="_blank"
               className="link link-info text-sm">
-              {profileData.link}
+              {(profileData && profileData.link) || ''}
             </a>
           )}
         </span>
@@ -81,22 +86,22 @@ export default function Profile({ profileData, setProfile }) {
         <span className="mt-3 pl-2 flex flex-row">
           <MdMail className="pt-1.5" size="1.3rem" />
           <a
-            href={`mailto:${profileData.email}`}
+            href={`mailto:${(profileData && profileData.email) || ''}`}
             target="_blank"
             className="link link-info">
-            {profileData.email}
+            {(profileData && profileData.email) || ''}
           </a>
         </span>
         <span className="mt-3 pl-2 flex flex-row">
           <MdCall className="pt-1.5" size="1.3rem" />
-          {profileData.contact === '' ? (
+          {profileData && profileData.contact === '' ? (
             <span className="text-xs opacity-50 pt-1">No Phone Number</span>
           ) : (
             <a
-              href={`tel:${profileData.contact}`}
+              href={`tel:${profileData && profileData.contact}`}
               target="_blank"
               className="link link-info">
-              {profileData.contact}
+              {profileData && profileData.contact}
             </a>
           )}
         </span>
@@ -107,11 +112,7 @@ export default function Profile({ profileData, setProfile }) {
         <span className="link link-error text-xs">Change password?</span>
       </div>
 
-      <EditProfile
-        profileData={profileData}
-        setProfile={setProfile}
-        setUpdateError={setUpdateError}
-      />
+      <EditProfile setUpdateError={setUpdateError} />
     </div>
   );
 }
