@@ -132,7 +132,7 @@ function ChatroomItem({ id }) {
 
   useEffect(() => {
     GetChatroom();
-  }, []);
+  }, [id]);
   return (
     <div
       className={`btn btn-sm btn-ghost btn-block ${

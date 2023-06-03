@@ -5,6 +5,7 @@ import Chatroom from './chatroom';
 import AppLayout from '../../components/appLayout.desktop';
 import { CreateGroup, InviteMenu, JoinGroup } from './Menus/create_join_invite';
 import { RolesList } from './Menus/roles';
+import { MembersList } from './Menus/members';
 
 export default function Desktop() {
   return (
@@ -23,7 +24,7 @@ export default function Desktop() {
       <JoinGroup />
       <InviteMenu />
       <RolesList />
-      {/*<MembersList />*/}
+      <MembersList />
     </AppLayout>
   );
 }

@@ -1,11 +1,10 @@
-import React, { useEffect, useRef, useState } from 'react';
-import axios from 'axios';
-import { MdAdd, MdCopyAll, MdDelete, MdEdit, MdUpload } from 'react-icons/md';
+import React, { useEffect, useState } from 'react';
+import { MdAdd, MdDelete, MdEdit } from 'react-icons/md';
 import { useDispatch, useSelector } from 'react-redux';
 import { addRole, getGroupMenuData, getRole } from '../../../utils/group';
 import { changeGroupRRM } from '../../../slices/groupSlice';
 
-export function RolesList() {
+export function MembersList() {
   const colorMap = {
     1: {
       btn: 'btn-success',
@@ -45,29 +44,12 @@ export function RolesList() {
   const member = useSelector((state) => state.group.member);
   const [myRole, setMyRole] = useState({});
 
-  //Add Role Vars
-  const [name, setName] = useState('');
-  const [tier, setTier] = useState(1);
-
   const GetMyRole = async () => {
     return await getRole(member.roleId)
       .then((res) => {
         return setMyRole(res.data);
       })
       .catch((err) => console.log(err));
-  };
-  const OnAddRole = async () => {
-    reset();
-    try {
-      let data = { name, tier, groupid, memberid: member.memberId };
-      return await addRole(data).then(async (res) => {
-        await getGroupMenuData(groupid).then((res) => {
-          return dispatch(changeGroupRRM(res.GroupRRM));
-        });
-      });
-    } catch (error) {
-      console.log(error);
-    }
   };
 
   const reset = () => {
@@ -81,33 +63,23 @@ export function RolesList() {
 
   return (
     <div>
-      <input type="checkbox" id="rolesList" className="modal-toggle" />
+      <input type="checkbox" id="membersList" className="modal-toggle" />
       <div className="modal">
         <div className="modal-box max-h-[85vh] overflow-y-auto scrollbar-hide relative w-[26rem] min-h-[60vh]">
           <label
             onClick={(e) => {
               reset();
             }}
-            htmlFor="rolesList"
+            htmlFor="membersList"
             className="btn btn-sm btn-circle absolute right-2 top-2 btn-error z-50">
             ✕
           </label>
-          <div className="text-lg font-semibold mt-2">Roles List</div>
+          <div className="text-lg font-semibold mt-2">Members List</div>
           <div className="divider divider-vertical my-2"></div>
-          {myRole.tier >= 5 && (
-            <AddRole
-              colorMap={colorMap}
-              OnAddRole={OnAddRole}
-              name={name}
-              setName={setName}
-              tier={tier}
-              setTier={setTier}
-            />
-          )}
           <div className="w-full flex flex-col overflow-y-auto scrollbar-hide max-h-[55vh] text-center justify-start items-center gap-2 relative">
             {roleids.map((roleid, i) => {
               return (
-                <RoleItem
+                <MemberItem
                   id={roleid}
                   colorMap={colorMap}
                   key={i}
@@ -123,32 +95,7 @@ export function RolesList() {
   );
 }
 
-export function AddRole({ colorMap, OnAddRole, name, tier, setName, setTier }) {
-  return (
-    <div className="flex flex-row my-2">
-      <input
-        value={name}
-        onChange={(e) => {
-          e.preventDefault();
-          setName(e.target.value);
-        }}
-        type="text"
-        className={`input input-bordered ${colorMap[tier]['input']} w-full max-w-xs`}
-      />
-      <TierDropDown tier={tier} setTier={setTier} colorMap={colorMap} />
-      <button
-        onClick={(e) => {
-          e.preventDefault();
-          OnAddRole();
-        }}
-        className={`btn ${colorMap[tier]['btn']} ${colorMap[tier]['text']}`}>
-        <MdAdd size="1.2rem" />
-      </button>
-    </div>
-  );
-}
-
-export function TierDropDown({ colorMap, setTier, tier }) {
+export function RolesDropDown({ colorMap, setTier, tier }) {
   const onTierChange = (e, v) => {
     e.preventDefault();
     setTier(v);
@@ -183,7 +130,7 @@ export function TierDropDown({ colorMap, setTier, tier }) {
   );
 }
 
-export function RoleItem({ id, colorMap, i, editable }) {
+export function MemberItem({ id, colorMap, i, editable }) {
   const [role, setRole] = useState({});
 
   const GetRole = async () => {
