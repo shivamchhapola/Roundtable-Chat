@@ -130,6 +130,39 @@ export const addRole = async (data) => {
     )
     .then((res) => {
       return res;
-    })
-    .catch((err) => console.log(err));
+    });
+};
+
+export const editRole = async (data) => {
+  return await axios
+    .post(
+      `${import.meta.env.VITE_BACKEND}/api/group/editrole`,
+      JSON.stringify(data),
+      {
+        headers: {
+          'Content-Type': 'application/json',
+          Authorization: `Bearer ${localStorage.getItem('userToken')}`,
+        },
+      }
+    )
+    .then((res) => {
+      return res;
+    });
+};
+
+export const delRole = async (data) => {
+  return await axios
+    .post(
+      `${import.meta.env.VITE_BACKEND}/api/group/delrole`,
+      JSON.stringify(data),
+      {
+        headers: {
+          'Content-Type': 'application/json',
+          Authorization: `Bearer ${localStorage.getItem('userToken')}`,
+        },
+      }
+    )
+    .then((res) => {
+      return res;
+    });
 };
