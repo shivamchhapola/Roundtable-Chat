@@ -101,6 +101,7 @@ export function RolesList() {
   const OnEditRole = async () => {
     reset();
     try {
+      if (!eid || !ename || !etier || !member) return;
       let data = {
         id: eid,
         name: ename,
@@ -121,6 +122,7 @@ export function RolesList() {
   const OnDelRole = async () => {
     reset();
     try {
+      if (!did || !groupid || !member) return;
       let data = {
         id: did,
         gid: groupid,
@@ -285,7 +287,7 @@ function TierDropDown({ colorMap, setTier, tier }) {
     <div className="dropdown">
       <div
         tabIndex={0}
-        className={`mx-2 w-[6rem] mb-1 ${colorMap[tier]['btn']} btn`}>
+        className={`mx-2 w-[6rem] mb-1 ${colorMap[tier ?? 1]['btn']} btn`}>
         Tier {tier}
       </div>
       <ul
@@ -347,7 +349,7 @@ function RoleItem({ id, colorMap, i, editable, onEditMode, onDelMode }) {
           <div
             onClick={(e) => {
               e.preventDefault();
-              onEditMode(id, role.name, role.tier);
+              if (role) onEditMode(id, role.name, role.tier);
             }}
             className={`btn btn-circle btn-xs btn-ghost text-white`}>
             <MdEdit size="1.35rem" />

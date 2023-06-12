@@ -1,7 +1,14 @@
 import React, { useEffect, useState } from 'react';
 import { MdAdd, MdDelete, MdEdit } from 'react-icons/md';
 import { useDispatch, useSelector } from 'react-redux';
-import { addRole, getGroupMenuData, getRole } from '../../../utils/group';
+import {
+  addRole,
+  delMember,
+  editMember,
+  getGroupMenuData,
+  getMemberData,
+  getRole,
+} from '../../../utils/group';
 import { changeGroupRRM } from '../../../slices/groupSlice';
 
 export function MembersList() {
@@ -40,9 +47,16 @@ export function MembersList() {
   const dispatch = useDispatch();
 
   const groupid = useSelector((state) => state.group.selectedGroup);
-  const roleids = useSelector((state) => state.group.groupRRM.roles);
+  const groupRRM = useSelector((state) => state.group.groupRRM);
   const member = useSelector((state) => state.group.member);
   const [myRole, setMyRole] = useState({});
+  const [editMode, setEditMode] = useState(false);
+  const [delMode, setDelMode] = useState(false);
+  const [memberids, setMemberids] = useState([]);
+  const [error, setError] = useState('');
+  const [eid, setEId] = useState('');
+  const [erole, setERole] = useState('');
+  const [did, setDId] = useState('');
 
   const GetMyRole = async () => {
     return await getRole(member.roleId)
@@ -52,14 +66,75 @@ export function MembersList() {
       .catch((err) => console.log(err));
   };
 
+  const onEditMember = async () => {
+    reset();
+    try {
+      if (!eid || !erole || !member) return;
+      let data = {
+        id: eid,
+        role: erole,
+        memberid: member.memberId,
+      };
+      return await editMember(data).then(async (res) => {
+        setMemberids([]);
+        await getGroupMenuData(groupid).then((res) => {
+          return dispatch(changeGroupRRM(res.GroupRRM));
+        });
+      });
+    } catch (error) {
+      return setError(error.response.data);
+    }
+  };
+
+  const OnDelMember = async () => {
+    reset();
+    try {
+      if (!did || !groupid || !member) return;
+      let data = {
+        id: did,
+        gid: groupid,
+        memberid: member.memberId,
+      };
+      return await delMember(data).then(async (res) => {
+        setMemberids([]);
+        await getGroupMenuData(groupid).then((res) => {
+          return dispatch(changeGroupRRM(res.GroupRRM));
+        });
+      });
+    } catch (error) {
+      return setError(error.response.data);
+    }
+  };
+
+  const onEditMode = (id, role) => {
+    reset();
+    setEId(id);
+    setERole(role);
+    setEditMode(true);
+  };
+
+  const onDelMode = (id) => {
+    reset();
+    setDId(id);
+    setDelMode(true);
+  };
+
   const reset = () => {
-    setName('');
-    setTier(1);
+    setDId('');
+    setEId('');
+    setERole('');
+    setEditMode(false);
+    setDelMode(false);
+    setError('');
   };
 
   useEffect(() => {
     if (member.roleId) GetMyRole();
   }, [member]);
+
+  useEffect(() => {
+    setMemberids(groupRRM.members);
+  }, [groupRRM]);
 
   return (
     <div>
@@ -77,10 +152,10 @@ export function MembersList() {
           <div className="text-lg font-semibold mt-2">Members List</div>
           <div className="divider divider-vertical my-2"></div>
           <div className="w-full flex flex-col overflow-y-auto scrollbar-hide max-h-[55vh] text-center justify-start items-center gap-2 relative">
-            {roleids.map((roleid, i) => {
+            {memberids.map((id, i) => {
               return (
                 <MemberItem
-                  id={roleid}
+                  id={id}
                   colorMap={colorMap}
                   key={i}
                   i={i}
@@ -132,17 +207,21 @@ export function RolesDropDown({ colorMap, setTier, tier }) {
 
 export function MemberItem({ id, colorMap, i, editable }) {
   const [role, setRole] = useState({});
+  const [member, setMember] = useState({});
 
-  const GetRole = async () => {
-    return await getRole(id)
-      .then((res) => {
-        return setRole(res.data);
-      })
-      .catch((err) => console.log(err));
+  const GetMember = async () => {
+    try {
+      const member = await getMemberData(id);
+      const role = await getRole(member.roleId);
+      setMember(member);
+      setRole(role);
+    } catch (error) {
+      console.log(error);
+    }
   };
 
   useEffect(() => {
-    GetRole();
+    GetMember();
   }, [id]);
 
   return (
@@ -154,13 +233,13 @@ export function MemberItem({ id, colorMap, i, editable }) {
         className={`${
           role.tier && colorMap[role.tier]['text']
         } font-semibold overflow-hidden overflow-ellipsis whitespace-nowrap flex-1 text-left`}>
-        {i + 1 + '. ' + role.name}
+        {i + 1 + '. ' + member.name}
       </div>
       <div
         className={`${
           role.tier && colorMap[role.tier]['text']
         } font-semibold text-sm text-right opacity-[69%]`}>
-        Tier {role.tier}
+        {role.name}
       </div>
       {editable && (
         <div className="flex flex-row gap-1">

@@ -20,6 +20,7 @@
       "**/.project": true,
       "**/.settings": true,
       "**/node_modules": true
-    }
+    },
+    "vscord.enabled": false
   }
 }

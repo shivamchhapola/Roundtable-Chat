@@ -101,6 +101,53 @@ export const getMyMemberData = async (selectedGroupID) => {
     .catch((err) => console.log(err));
 };
 
+export const getMemberData = async (id) => {
+  return await axios
+    .get(`${import.meta.env.VITE_BACKEND}/api/group/getMember?id=${id}`, {
+      headers: {
+        Authorization: `Bearer ${localStorage.getItem('userToken')}`,
+      },
+    })
+    .then((res) => {
+      return res.data;
+    })
+    .catch((err) => console.log(err));
+};
+
+export const editMember = async (data) => {
+  return await axios
+    .post(
+      `${import.meta.env.VITE_BACKEND}/api/group/editmember`,
+      JSON.stringify(data),
+      {
+        headers: {
+          'Content-Type': 'application/json',
+          Authorization: `Bearer ${localStorage.getItem('userToken')}`,
+        },
+      }
+    )
+    .then((res) => {
+      return res;
+    });
+};
+
+export const delMember = async (data) => {
+  return await axios
+    .post(
+      `${import.meta.env.VITE_BACKEND}/api/group/delmember`,
+      JSON.stringify(data),
+      {
+        headers: {
+          'Content-Type': 'application/json',
+          Authorization: `Bearer ${localStorage.getItem('userToken')}`,
+        },
+      }
+    )
+    .then((res) => {
+      return res;
+    });
+};
+
 export const getRole = async (id) => {
   return await axios
     .get(`${import.meta.env.VITE_BACKEND}/api/group/getRole?id=${id}`, {
