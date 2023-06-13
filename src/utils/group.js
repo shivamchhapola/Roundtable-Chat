@@ -109,7 +109,7 @@ export const getMemberData = async (id) => {
       },
     })
     .then((res) => {
-      return res.data;
+      return res;
     })
     .catch((err) => console.log(err));
 };

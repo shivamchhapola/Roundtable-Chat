@@ -57,21 +57,21 @@ export function RolesList() {
   const groupRRM = useSelector((state) => state.group.groupRRM);
   const member = useSelector((state) => state.group.member);
   const [myRole, setMyRole] = useState({});
-  const [editMode, setEditMode] = useState(false);
-  const [delMode, setDelMode] = useState(false);
-  const [roleids, setRoleids] = useState([]);
   const [error, setError] = useState('');
+  const [roles, setRoles] = useState([{}]);
 
   //Add Role Vars
   const [name, setName] = useState('');
   const [tier, setTier] = useState(1);
 
   //Edit Role Vars
+  const [editMode, setEditMode] = useState(false);
   const [eid, setEId] = useState('');
   const [ename, setEName] = useState('');
   const [etier, setETier] = useState(1);
 
   //Del Role Vars
+  const [delMode, setDelMode] = useState(false);
   const [did, setDId] = useState('');
   const [dname, setDName] = useState('');
 
@@ -88,7 +88,6 @@ export function RolesList() {
     try {
       let data = { name, tier, groupid, memberid: member.memberId };
       return await addRole(data).then(async (res) => {
-        setRoleids([]);
         await getGroupMenuData(groupid).then((res) => {
           return dispatch(changeGroupRRM(res.GroupRRM));
         });
@@ -109,7 +108,6 @@ export function RolesList() {
         memberid: member.memberId,
       };
       return await editRole(data).then(async (res) => {
-        setRoleids([]);
         await getGroupMenuData(groupid).then((res) => {
           return dispatch(changeGroupRRM(res.GroupRRM));
         });
@@ -129,7 +127,6 @@ export function RolesList() {
         memberid: member.memberId,
       };
       return await delRole(data).then(async (res) => {
-        setRoleids([]);
         await getGroupMenuData(groupid).then((res) => {
           return dispatch(changeGroupRRM(res.GroupRRM));
         });
@@ -137,6 +134,20 @@ export function RolesList() {
     } catch (error) {
       return setError(error.response.data);
     }
+  };
+
+  const getRoles = async (roleids) => {
+    let rroles = [];
+    for (const roleid of roleids) {
+      try {
+        let role = await getRole(roleid);
+        rroles.push(role.data);
+      } catch (error) {
+        return setError(error.response.data);
+      }
+    }
+    rroles.sort((a, b) => b.tier - a.tier);
+    return setRoles(rroles);
   };
 
   const onEditMode = (id, name, tier) => {
@@ -171,7 +182,7 @@ export function RolesList() {
   }, [member]);
 
   useEffect(() => {
-    setRoleids(groupRRM.roles);
+    if (groupRRM.roles.length > 0) getRoles(groupRRM.roles);
   }, [groupRRM]);
 
   return (
@@ -213,10 +224,10 @@ export function RolesList() {
             />
           )}
           <div className="w-full flex flex-col overflow-y-auto scrollbar-hide max-h-[55vh] text-center justify-start items-center gap-2 relative">
-            {roleids.map((roleid, i) => {
+            {roles.map((role, i) => {
               return (
                 <RoleItem
-                  id={roleid}
+                  role={role}
                   colorMap={colorMap}
                   key={i}
                   i={i}
@@ -312,21 +323,7 @@ function TierDropDown({ colorMap, setTier, tier }) {
   );
 }
 
-function RoleItem({ id, colorMap, i, editable, onEditMode, onDelMode }) {
-  const [role, setRole] = useState({});
-
-  const GetRole = async () => {
-    return await getRole(id)
-      .then((res) => {
-        return setRole(res.data);
-      })
-      .catch((err) => console.log(err));
-  };
-
-  useEffect(() => {
-    GetRole();
-  }, [id]);
-
+function RoleItem({ role, colorMap, i, editable, onEditMode, onDelMode }) {
   return (
     <div
       className={`flex flex-row w-full justify-between mx-4 px-4 ${
@@ -349,7 +346,7 @@ function RoleItem({ id, colorMap, i, editable, onEditMode, onDelMode }) {
           <div
             onClick={(e) => {
               e.preventDefault();
-              if (role) onEditMode(id, role.name, role.tier);
+              if (role) onEditMode(role.id, role.name, role.tier);
             }}
             className={`btn btn-circle btn-xs btn-ghost text-white`}>
             <MdEdit size="1.35rem" />
@@ -357,7 +354,7 @@ function RoleItem({ id, colorMap, i, editable, onEditMode, onDelMode }) {
           <div
             onClick={(e) => {
               e.preventDefault();
-              onDelMode(id, role.name);
+              onDelMode(role.id, role.name);
             }}
             className={`btn btn-circle btn-xs btn-ghost text-white`}>
             <MdDelete size="1.35rem" />
@@ -378,7 +375,7 @@ function EditRole({
   setEditMode,
 }) {
   return (
-    <div className="absolute top-[50%] w-full right-0 p-2 flex justify-center items-center">
+    <div className="absolute top-[40%] w-full right-0 p-2 flex justify-center items-center">
       <div className="bg-base-300 w-full px-4 py-2 rounded">
         <label
           onClick={(e) => {
@@ -419,7 +416,7 @@ function EditRole({
 
 function DelRole({ dname, setDelMode, OnDelRole }) {
   return (
-    <div className="absolute top-[50%] w-full right-0 p-2 flex justify-center items-center">
+    <div className="absolute top-[40%] w-full right-0 p-2 flex justify-center items-center">
       <div className="bg-error w-full px-4 py-2 rounded">
         <div className="alert alert-error">
           <div className="text-error-content font-semibold">
