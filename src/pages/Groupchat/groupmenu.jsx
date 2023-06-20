@@ -92,10 +92,12 @@ export default function Groupmenu() {
                 </label>
               </li>
               <li>
-                <div className="btn btn-sm btn-ghost btn-block pb-6 flex flex-row">
+                <label
+                  htmlFor="editgroup"
+                  className="btn btn-sm btn-ghost btn-block pb-6 flex flex-row">
                   <MdEdit />
                   <span className="flex-1 text-left">Edit Group</span>
-                </div>
+                </label>
               </li>
             </ul>
           </div>

@@ -174,22 +174,41 @@ export function MembersList() {
             className="btn btn-sm btn-circle absolute right-2 top-2 btn-error z-50">
             ✕
           </label>
+          {error && (
+            <div className="alert alert-error mt-5 p-2 flex justify-between">
+              {error}
+              <div
+                onClick={(e) => {
+                  e.preventDefault();
+                  setError('');
+                }}
+                className="btn btn-xs btn-circle btn-outline">
+                <MdCheck size="1.2rem" />
+              </div>
+            </div>
+          )}
           <div className="text-lg font-semibold mt-2">Members List</div>
           <div className="divider divider-vertical my-2"></div>
           <div className="w-full flex flex-col overflow-y-auto scrollbar-hide max-h-[55vh] text-center justify-start items-center gap-2 relative">
-            {members.map((member, i) => {
-              return (
-                <MemberItem
-                  member={member}
-                  colorMap={colorMap}
-                  key={i}
-                  i={i}
-                  editable={myRole.tier >= 5 ? true : false}
-                  onDelMode={onDelMode}
-                  onEditMode={onEditMode}
-                />
-              );
-            })}
+            {members &&
+              members.map((member, i) => {
+                return (
+                  <MemberItem
+                    member={member}
+                    colorMap={colorMap}
+                    key={i}
+                    i={i}
+                    editable={
+                      !myRole &&
+                      (myRole.tier <= member.role.tier || myRole.tier <= 2)
+                        ? false
+                        : true
+                    }
+                    onDelMode={onDelMode}
+                    onEditMode={onEditMode}
+                  />
+                );
+              })}
           </div>
           {delMode && (
             <DelMember

@@ -6,6 +6,7 @@ import AppLayout from '../../components/appLayout.desktop';
 import { CreateGroup, InviteMenu, JoinGroup } from './Menus/create_join_invite';
 import { RolesList } from './Menus/roles';
 import { MembersList } from './Menus/members';
+import { EditGroup } from './Menus/editgroup';
 
 export default function Desktop() {
   return (
@@ -25,6 +26,7 @@ export default function Desktop() {
       <InviteMenu />
       <RolesList />
       <MembersList />
+      <EditGroup />
     </AppLayout>
   );
 }

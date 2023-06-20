@@ -231,7 +231,7 @@ export function RolesList() {
                   colorMap={colorMap}
                   key={i}
                   i={i}
-                  editable={myRole.tier >= 5 ? true : false}
+                  editable={myRole.tier >= 4 ? true : false}
                   onEditMode={onEditMode}
                   onDelMode={onDelMode}
                 />
