@@ -1,17 +1,17 @@
-# Roundtable Chat
+# Roundtable Chat 🌐
 
-Welcome to Roundtable Chat, a Discord like chat website / web app built using React.js, MongoDB, Express.js, Node.js, Vite, Tailwind CSS, and Daisy UI.
+Welcome to Roundtable Chat, a Discord like chat website / web app built using React.js, MongoDB, Express.js, Node.js, Vite, Tailwind CSS, and Daisy UI. It provides users with a platform to engage in conversations, create chat rooms, and connect with others in a seamless and interactive way.
 
-## Features
+## 🚀 Features
 
 - Real-time chat functionality(working on it 😢)
-- User authentication and registration
-- Group chat and personal chat
-- Multiple Chatrooms for a single group chat
-- Member Roles for Group chats
-- More features coming soon.....
+- User authentication with JWT and registration 🔒
+- Group chat and personal chat👥
+- Multiple Chatrooms for a single group chat 🏰
+- Member Roles for Group chats 💬
+- More features coming soon.....💻
 
-## Installation
+## 📚 Installation
 
 1. Clone the repository:
 
@@ -43,20 +43,23 @@ npm run dev
 
 6. Open your browser and visit http://localhost: (whatever port, see your terminal) to see the Roundtable Chat application.
 
-## Technologies Used
+## 🛠️ Technologies Used
 
-- React.js
-- MongoDB
-- Express.js
-- Node.js
-- Vite
-- Tailwind CSS
-- Daisy UI
+- Vite + React.js ⚛️
+- MongoDB 🗃️
+- Express.js 🖥️
+- Node.js 🌐
+- Tailwind CSS 🎨
+- Daisy UI 🎨
 
-## Contributing
+## 💡 Contributing
 
 Contributions are welcome! If you have any suggestions, improvements, or bug fixes, please open an issue or submit a pull request.
 
-## License
+## 📝 License
 
 This project is licensed under the [MIT License](LICENSE).
+
+## ⬛ Screenshots
+
+(will be adding them later)
