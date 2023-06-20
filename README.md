@@ -41,7 +41,7 @@ npm install
 npm run dev
 ```
 
-6. Open your browser and visit http://localhost:3000 to see the Roundtable Chat application.
+6. Open your browser and visit http://localhost:(whatever port, see your terminal) to see the Roundtable Chat application.
 
 ## Technologies Used
 
@@ -59,4 +59,4 @@ Contributions are welcome! If you have any suggestions, improvements, or bug fix
 
 ## License
 
-This project is licensed under the MIT License.
+This project is licensed under the [MIT License](LICENSE).
