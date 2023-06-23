@@ -22,6 +22,29 @@ export const createGroup = async (name, bio, picBlob) => {
     .catch((err) => console.log(err));
 };
 
+export const editGroup = async (name, bio, picBlob, memberid, id) => {
+  const groupFromData = new FormData();
+  groupFromData.append('name', name);
+  groupFromData.append('bio', bio);
+  groupFromData.append('memberid', memberid);
+  groupFromData.append('id', id);
+  if (picBlob) groupFromData.append('pic', picBlob);
+  return await axios
+    .post(
+      `${import.meta.env.VITE_BACKEND}/api/group/editgroup`,
+      groupFromData,
+      {
+        headers: {
+          'Content-Type': 'multipart/form-data',
+          Authorization: `Bearer ${localStorage.getItem('userToken')}`,
+        },
+      }
+    )
+    .then(async (res) => {
+      return res;
+    });
+};
+
 export const getGroupList = async () => {
   return await axios
     .get(`${import.meta.env.VITE_BACKEND}/api/user/getmygroups`, {

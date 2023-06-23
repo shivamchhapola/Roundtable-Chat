@@ -1,26 +1,72 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { MdCheck, MdUpload } from 'react-icons/md';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
+import { changeSelectedGroup } from '../../../slices/groupSlice';
+import { changeGroups } from '../../../slices/userSlice';
+import {
+  editGroup,
+  getGroupData,
+  getGroupList,
+  getRole,
+} from '../../../utils/group';
 
 export function EditGroup() {
   const dispatch = useDispatch();
 
+  const groupid = useSelector((state) => state.group.selectedGroup);
+  const member = useSelector((state) => state.group.member);
+
+  const [myRole, setMyRole] = useState({ tier: 1 });
   const [error, setError] = useState('');
   const [name, setName] = useState('');
   const [bio, setBio] = useState('');
   const [pic, setPic] = useState('');
   const [picBlob, setPicBlob] = useState(null);
 
-  const editgroup = async () => {
+  const getGroup = async () => {
     reset();
-    await createGroup(name, bio, picBlob)
-      .then(async (res) => {
-        return await getGroupList().then((data) => {
-          dispatch(changeGroups(data));
-        });
-      })
+    try {
+      let group = await getGroupData(groupid);
+      setName(group.data.name);
+      setBio(group.data.bio);
+      setPic(group.data.pic);
+      return;
+    } catch (error) {
+      return setError(error.response.data);
+    }
+  };
 
+  const GetMyRole = async () => {
+    return await getRole(member.roleId)
+      .then((res) => {
+        return setMyRole(res.data);
+      })
       .catch((err) => console.log(err));
+  };
+
+  const editgroup = async () => {
+    try {
+      let group = await editGroup(name, bio, picBlob, member.memberId, groupid);
+      dispatch(changeSelectedGroup(''));
+      setName(group.data.name);
+      setBio(group.data.bio);
+      setPic(group.data.pic);
+      setGroupListData();
+      dispatch(changeSelectedGroup(group.data._id));
+      return;
+    } catch (error) {
+      getGroup();
+      return setError(error.response.data);
+    }
+  };
+
+  const setGroupListData = async () => {
+    dispatch(changeGroups([]));
+    await getGroupList().then((data) => {
+      if (data) {
+        dispatch(changeGroups(data));
+      }
+    });
   };
 
   const reset = () => {
@@ -28,6 +74,12 @@ export function EditGroup() {
     setName('');
     setBio('');
   };
+
+  useEffect(() => {
+    if (groupid) getGroup();
+    if (member.roleId) GetMyRole();
+  }, [groupid, member]);
+
   return (
     <div>
       <input type="checkbox" id="editgroup" className="modal-toggle" />
@@ -40,7 +92,7 @@ export function EditGroup() {
             ✕
           </label>
           {error && (
-            <div className="alert alert-error mt-5 p-2 flex justify-between">
+            <div className="alert alert-error mt-5 mb-2 p-2 flex justify-between">
               {error}
               <div
                 onClick={(e) => {
@@ -59,8 +111,8 @@ export function EditGroup() {
                   <img src={URL.createObjectURL(picBlob)} />
                 ) : (
                   <div className="absolute right-0 top-0 flex justify-center items-center w-full h-full">
-                    <div className="btn btn-circle bg-gray-800 bg-opacity-30 border-0 text-white hover:bg-gray-700 btn-lg">
-                      <MdUpload size="2.5rem" />
+                    <div className="btn btn-circle bg-gray-800 bg-opacity-30 border-0 text-white hover:bg-gray-700 btn-lg w-full h-full overflow-hidden">
+                      <img src={pic} />
                       <input
                         type="file"
                         accept="image/png, image/jpeg"
@@ -77,6 +129,7 @@ export function EditGroup() {
                   <input
                     type="file"
                     accept="image/png, image/jpeg"
+                    disabled={myRole.tier < 4}
                     onChange={(e) => {
                       e.preventDefault();
                       setPicBlob(e.target.files[0]);
@@ -92,6 +145,7 @@ export function EditGroup() {
                   Group Name
                 </span>
                 <input
+                  disabled={myRole.tier < 5}
                   value={name}
                   onChange={(e) => {
                     e.preventDefault();
@@ -108,6 +162,7 @@ export function EditGroup() {
                 </span>
                 <textarea
                   value={bio}
+                  disabled={myRole.tier < 4}
                   onChange={(e) => {
                     e.preventDefault();
                     setBio(e.target.value);
@@ -120,12 +175,14 @@ export function EditGroup() {
             </div>
           </div>
           <div className="modal-action justify-center">
-            <label
+            <input
+              type="button"
+              value="Edit Group"
+              disabled={myRole.tier < 4}
               onClick={editgroup}
               htmlFor="createGroup"
-              className="btn btn-accent">
-              Edit Group
-            </label>
+              className="btn btn-accent"
+            />
           </div>
         </div>
       </div>

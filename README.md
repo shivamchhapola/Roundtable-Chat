@@ -16,7 +16,7 @@ Welcome to Roundtable Chat, a Discord like chat website / web app built using Re
 1. Clone the repository:
 
 ```bash
-git clone https://github.com/your-username/roundtable-chat.git
+git clone https://github.com/shivamchhapola/roundtable-chat.git
 ```
 
 2. Navigate to the project directory:
