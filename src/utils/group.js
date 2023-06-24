@@ -60,6 +60,24 @@ export const getGroupList = async () => {
     });
 };
 
+export const delGroup = async (id, memberId) => {
+  const data = { _id: id, admin: memberId };
+  return await axios
+    .post(
+      `${import.meta.env.VITE_BACKEND}/api/group/delgroup`,
+      JSON.stringify(data),
+      {
+        headers: {
+          'Content-Type': 'application/json',
+          Authorization: `Bearer ${localStorage.getItem('userToken')}`,
+        },
+      }
+    )
+    .then((res) => {
+      return res;
+    });
+};
+
 export const getGroupData = async (id) => {
   return await axios
     .get(`${import.meta.env.VITE_BACKEND}/api/group/getgroupdata?id=${id}`, {

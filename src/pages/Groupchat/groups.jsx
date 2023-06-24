@@ -5,7 +5,12 @@ import { MdAdd, MdLink } from 'react-icons/md';
 import { getGroupData } from '../../utils/group';
 
 export default function Groups() {
+  const dispatch = useDispatch();
   const groupIDs = useSelector((state) => state.user.groups);
+
+  useEffect(() => {
+    if (groupIDs.length > 0) dispatch(changeSelectedGroup(groupIDs[0]));
+  }, [groupIDs]);
 
   return (
     <div className="w-full">

@@ -4,6 +4,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { changeSelectedGroup } from '../../../slices/groupSlice';
 import { changeGroups } from '../../../slices/userSlice';
 import {
+  delGroup,
   editGroup,
   getGroupData,
   getGroupList,
@@ -22,6 +23,7 @@ export function EditGroup() {
   const [bio, setBio] = useState('');
   const [pic, setPic] = useState('');
   const [picBlob, setPicBlob] = useState(null);
+  const [delMode, setDelMode] = useState(false);
 
   const getGroup = async () => {
     reset();
@@ -60,11 +62,24 @@ export function EditGroup() {
     }
   };
 
+  const delgroup = async () => {
+    try {
+      reset();
+      await delGroup(groupid, member.memberId).then((res) => {
+        setGroupListData();
+      });
+      return;
+    } catch (error) {
+      return setError(error.response.data);
+    }
+  };
+
   const setGroupListData = async () => {
     dispatch(changeGroups([]));
     await getGroupList().then((data) => {
       if (data) {
         dispatch(changeGroups(data));
+        return data;
       }
     });
   };
@@ -73,6 +88,8 @@ export function EditGroup() {
     setPicBlob(null);
     setName('');
     setBio('');
+    setPic('');
+    setDelMode(false);
   };
 
   useEffect(() => {
@@ -174,16 +191,60 @@ export function EditGroup() {
               </label>
             </div>
           </div>
-          <div className="modal-action justify-center">
+          <div className="modal-action justify-around flex-row">
             <input
               type="button"
-              value="Edit Group"
-              disabled={myRole.tier < 4}
-              onClick={editgroup}
-              htmlFor="createGroup"
-              className="btn btn-accent"
+              value="Delete Group"
+              onClick={() => {
+                setDelMode(true);
+              }}
+              disabled={myRole.tier < 5}
+              className="btn btn-error"
             />
+            <label
+              onClick={myRole.tier < 4 ? () => {} : editgroup}
+              htmlFor="editgroup"
+              className={`btn btn-accent ${myRole.tier < 4 && 'btn-disabled'}`}>
+              Edit Group
+            </label>
           </div>
+          {delMode && (
+            <DelGroup
+              gname={name}
+              setDelMode={setDelMode}
+              OnDelGroup={delgroup}
+            />
+          )}
+        </div>
+      </div>
+    </div>
+  );
+}
+
+function DelGroup({ gname, setDelMode, OnDelGroup }) {
+  return (
+    <div className="absolute top-[40%] w-full right-0 p-2 flex justify-center items-center">
+      <div className="bg-error w-full px-4 py-2 rounded">
+        <div className="alert alert-error">
+          <div className="text-error-content font-semibold">
+            Are you sure, you wanna delete "{gname}" Group?
+          </div>
+          <button
+            onClick={(e) => {
+              setDelMode(false);
+            }}
+            className="btn btn-circle text-[1.2rem] btn-outline">
+            ✕
+          </button>
+          <label
+            htmlFor="editgroup"
+            onClick={(e) => {
+              e.preventDefault();
+              OnDelGroup();
+            }}
+            className="btn btn-circle btn-outline">
+            <MdCheck size="1.5rem" />
+          </label>
         </div>
       </div>
     </div>
