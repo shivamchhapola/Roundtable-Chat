@@ -1,5 +1,8 @@
 # Roundtable Chat 🌐
 
+> **Warning**
+> This project is still in development and is not ready for production use.
+
 Welcome to Roundtable Chat, a Discord like chat website / web app built using React.js, MongoDB, Express.js, Node.js, Vite, Tailwind CSS, and Daisy UI. It provides users with a platform to engage in conversations, create chat rooms, and connect with others in a seamless and interactive way.
 
 ## 🚀 Features
